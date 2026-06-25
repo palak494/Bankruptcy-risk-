@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all project code into the project/ directory
+COPY . ./project/
+
+# Set PYTHONPATH to allow importing project.* packages
+ENV PYTHONPATH=/app
+
+# Expose FastAPI backend port
+EXPOSE 8000
+
+# Start backend server
+CMD ["uvicorn", "project.main:app", "--host", "0.0.0.0", "--port", "8000"]

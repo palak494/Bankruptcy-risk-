@@ -1,0 +1,5 @@
+Accuracy = 0.9652
+Precision = 0.4000
+Recall = 0.4516
+F1 = 0.4242
+ROC-AUC = 0.9280

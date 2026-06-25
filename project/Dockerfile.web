@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all project code into the project/ directory
+COPY . ./project/
+
+# Expose Streamlit port
+EXPOSE 8501
+
+# Set PYTHONPATH to allow module imports if needed
+ENV PYTHONPATH=/app
+
+# Start frontend application
+CMD ["streamlit", "run", "project/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]

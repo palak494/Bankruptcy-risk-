@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./project
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./project:/app/project
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  web:
+    build:
+      context: ./project
+      dockerfile: Dockerfile.web
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - api
